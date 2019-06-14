@@ -1,0 +1,48 @@
+ {% extends "publication/base_admin1.html" %}
+
+{% block content %}
+ <main role="main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Сформировать отчет по кафедре</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+              </div>
+            </div>
+          </div>
+
+<form>
+
+    <label>Кафедра</label>
+    <select id="RequestType" class="form-control" name="id_customer" id="id_customer">
+                                {% for customer in customres %}
+                                    <option selected value= "{{ customer.Id_customer }}">
+                                        {{ customer.FIO }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+<label>Факультет</label>
+    <select id="RequestType" class="form-control" name="id_customer" id="id_customer">
+                                {% for customer in customres %}
+                                    <option selected value= "{{ customer.Id_customer }}">
+                                        {{ customer.FIO }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+<label>Год</label>
+    <select id="RequestType" class="form-control" name="id_customer" id="id_customer">
+                                {% for customer in customres %}
+                                    <option selected value= "{{ customer.Id_customer }}">
+                                        {{ customer.FIO }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+<br>
+<a class="btn btn-outline-secondary btn-sm" href="">Сформировать</a>
+
+
+</form>
+
+        </main>
+{% endblock %}

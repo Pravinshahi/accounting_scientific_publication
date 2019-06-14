@@ -1,0 +1,27 @@
+{% extends "publication/base_admin1.html" %}
+{% block content %}
+<row>
+        <form action="{% url 'department'  %}" method="POST">
+          <div class="form-group">
+          <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
+            <label>Наименование</label>
+              <input type="text" required class="form-control" name="name" id="name">
+              <label>Факультет</label>
+                            <select id="RequestType" class="form-control" name="faculty" id="faculty">
+                                {% for f in faculty %}
+                                    <option selected value= "{{ f.ID_faculty }}">
+                                        {{ f.Name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+
+
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Добавить</button>
+          </div>
+        </form>
+</row>
+
+{% endblock %}

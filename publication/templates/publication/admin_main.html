@@ -1,0 +1,62 @@
+ {% extends "publication/base_admin1.html" %}
+
+{% block content %}
+ <main role="main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Публикации ожидающие подтверждения</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group">
+  <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    По типу
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="">Монография</a>
+    <a class="dropdown-item" href="">Пособие</a>
+    <a class="dropdown-item" href="">Статья</a>
+      <a class="dropdown-item" href="">НИР</a>
+      <a class="dropdown-item" href="">Патенты</a>
+
+  </div>
+</div>
+            </div>
+          </div>
+    <div><br></div>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Авторы</th>
+                    <th>Тип</th>
+                  <th>Факультет</th>
+                    <th>Статус</th>
+                    <th>Подробнее</th>
+                    <th>Редактировать</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for publication in publications %}
+                <tr>
+                  <td>{{ publication.Name  }}</td>
+                  <td>{{ publication.ID_employee.FIO }}</td>
+                  <td>{{ publication.ID_type_publication.Name }}</td>
+                  <td>{{ publication.ID_employee.ID_department.ID_faculty.Name }}</td>
+                    <td>{{ publication.ID_status.Name }}</td>
+                     <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
+                    {% if publication.ID_status.Name != "Опубликовано" %}
+                    <td><a class="btn btn-outline-secondary btn-sm" href="">Редактировать</a></td>
+                    <td>
+                        <form action="{% url 'my_publication' %}" method="POST">
+                            <input type="hidden" required class="form-control" name="_method" id="_method" value = "DELETE">
+                            <input type="hidden" required class="form-control" name="publication" id="publication" value = "{{ publication.ID_publication}}">
+                            <input type="submit" class="btn btn-outline-danger btn-sm" value="Удалить" >
+                        </form>
+                    </td>
+                {% endif %}
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </main>
+{% endblock %}

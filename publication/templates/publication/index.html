@@ -1,18 +1,29 @@
-{% extends "publication/base.html" %}
+{% extends "publication/new_base.html" %}
 
 {% block content %}
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <main role="main">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Последние публикации сообщества</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
                 <!--<button class="btn btn-sm btn-outline-secondary">Экспорт</button>-->
               </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Учебники
-              </button>
+
+
+            <div class="btn-group">
+<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    По типу
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="">Монография</a>
+    <a class="dropdown-item" href="">Пособие</a>
+      <a class="dropdown-item" href="">НИР</a>
+      <a class="dropdown-item" href="">Статья</a>
+
+
+  </div>
+</div>
             </div>
           </div>
 
@@ -21,134 +32,23 @@
               <thead>
                 <tr>
                   <th>Название</th>
-                  <th>Авторы</th>
+                  <th>Автор</th>
                     <th>Тип</th>
                   <th>Факультет</th>
                     <th>Подробнее</th>
                 </tr>
               </thead>
               <tbody>
+              {% for publication in publications %}
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>Монография</td>
-                  <td>dolor</td>
+                  <td>{{ publication.Name }}</td>
+                  <td>{{ publication.ID_employee.FIO  }}</td>
+                  <td>{{ publication.ID_type_publication.Name }}</td>
+                  <td>{{ publication.ID_employee.ID_department.ID_faculty.Name }}</td>
                     <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>Монография</td>
-                  <td>adipiscing</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>Пособие</td>
-                  <td>odio</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Пособие</td>
-                  <td>cursus</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>Статья</td>
-                  <td>Sed</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>Статья</td>
-                  <td>sem</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>НИР</td>
-                  <td>imperdiet</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>НИР</td>
-                  <td>Praesent</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
+              {% endfor %}
 
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>Патент</td>
-                  <td>tellus</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>Патент</td>
-                  <td>porta</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Монография</td>
-                  <td>lacinia</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>Монография</td>
-                  <td>Class</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>Монография</td>
-                  <td>ad</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>Монография</td>
-                  <td>conubia</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>Монография</td>
-                  <td>himenaeos</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>Монография</td>
-                  <td>in</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                </tr>
               </tbody>
             </table>
           </div>

@@ -1,296 +1,99 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends "publication/new_base.html" %}
 
-    <title>Dashboard Template for Bootstrap</title>
-
-     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-
-    <!-- Custom styles for this template -->
-    <link href="static/dashboard.css" rel="stylesheet">
-  </head>
-
-  <body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Учет научных публикаций</a>
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Введите поисковой запрос" aria-label="Search">
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Выход</a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <span data-feather="home"></span>
-                  Главная <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
-                  Мои публикации
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Отчеты
-                </a>
-              </li>
-            </ul>
-
-          </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+{% block content %}
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Мои публикации</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <!--<button class="btn btn-sm btn-outline-secondary">Экспорт</button>-->
-              </div>
-                <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Опубликованы
-              </button>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Учебники
-              </button>
+                <div class="btn-group mr-2">
+                    <!--<button class="btn btn-sm btn-outline-secondary">Экспорт</button>-->
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        По статусу
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="">Опубликовано</a>
+                        <a class="dropdown-item" href="">Ожидает подтвержения</a>
+                        <a class="dropdown-item" href="">Отклонено</a>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        По типу
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="">Монография</a>
+                        <a class="dropdown-item" href="">Пособие</a>
+                        <a class="dropdown-item" href="">Статья</a>
+                        <a class="dropdown-item" href="">НИР</a>
+                        <a class="dropdown-item" href="">Патенты</a>
+
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
 
 
-            <div class="btn-group">
-  <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Добавить
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="/fio">Монография</a>
-    <a class="dropdown-item" href="/legal_entities">Пособие</a>
-    <a class="dropdown-item" href="/payment_period">Статья</a>
-      <a class="dropdown-item" href="/types_contracts">НИР</a>
-      <a class="dropdown-item" href="/type_service">Патенты</a>
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Добавить
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'my_monografi' %}">Монография</a>
+                <a class="dropdown-item" href="{% url 'my_publication_add_study' %}">Пособие</a>
+                <a class="dropdown-item" href="{% url 'my_publication_add_article' %}">Статья</a>
+                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">НИР</a>
 
-  </div>
-</div>
-    <div><br></div>
-          <div class="table-responsive">
+            </div>
+        </div>
+        <div><br></div>
+        <div class="table-responsive">
             <table class="table table-striped table-sm">
-              <thead>
+                <thead>
                 <tr>
-                  <th>Название</th>
-                  <th>Авторы</th>
+                    <th>Название</th>
+                    <th>Авторы</th>
                     <th>Тип</th>
-                  <th>Факультет</th>
+                    <th>Факультет</th>
                     <th>Статус</th>
                     <th>Подробнее</th>
                     <th>Редактировать</th>
                     <th>Удалить</th>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>Монография</td>
-                  <td>dolor</td>
-                    <td>Опубликовано</td>
-                     <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td></td>
-                    <td></td>
+                </thead>
+                <tbody>
+                {% for publication in publications %}
+                    <tr>
+                        <td>{{ publication.Name  }}</td>
+                        <td>{{ publication.ID_employee.FIO }}</td>
+                        <td>{{ publication.ID_type_publication.Name }}</td>
+                        <td>{{ publication.ID_employee.ID_department.ID_faculty.Name }}</td>
+                        <td>{{ publication.ID_status.Name }}</td>
 
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>Монография</td>
-                  <td>adipiscing</td>
-                    <td>Опубликовано</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                                        <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>Пособие</td>
-                  <td>odio</td>
-                    <td>Опубликовано</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                                        <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Пособие</td>
-                  <td>cursus</td>
-                    <td>Опубликовано</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                                        <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>Статья</td>
-                  <td>Sed</td>
-                    <td>Отклонено</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>Статья</td>
-                  <td>sem</td>
-                    <td>Отклонено</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>НИР</td>
-                  <td>imperdiet</td>
-                    <td>Отклонено</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>НИР</td>
-                  <td>Praesent</td>
-                    <td>Отклонено</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
+                        {% if publication.ID_type_publication.Name == "Монография" %}
+                            <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'monografi_more' id=publication.ID_publication  %}">Подробнее</a></td>
+                        {% endif %}
 
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>Патент</td>
-                  <td>tellus</td>
-                    <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
+                        {% if publication.ID_status.Name != "Опубликовано" %}
+                            {% if publication.ID_type_publication.Name == "Монография" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_monografi_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
 
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>Патент</td>
-                  <td>porta</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
+                            <td>
+                                <form action="{% url 'my_publication' %}" method="POST">
+                                    <input type="hidden" required class="form-control" name="_method" id="_method" value = "DELETE">
+                                    <input type="hidden" required class="form-control" name="publication" id="publication" value = "{{ publication.ID_publication}}">
+                                    <input type="submit" class="btn btn-outline-danger btn-sm" value="Удалить" >
+                                </form>
+                            </td>
 
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Монография</td>
-                  <td>lacinia</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>Монография</td>
-                  <td>Class</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>Монография</td>
-                  <td>ad</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>Монография</td>
-                  <td>conubia</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>Монография</td>
-                  <td>himenaeos</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>Монография</td>
-                  <td>in</td>
-                     <td>Ожидание подтверждения</td>
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-
-                    <td><a class="btn btn-outline-primary btn-sm" href="">Редактировать</a></td>
-                    <td><a class="btn btn-outline-danger btn-sm" href="">Удалить</a></td>
-
-                </tr>
-              </tbody>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
             </table>
-          </div>
-        </main>
-      </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="static/jquery-slim.min.js"><\/script>')</script>
-    <script src="static/popper.min.js"></script>
-    <script src="static/bootstrap.min.js"></script>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,27 @@
+  {% extends "publication/new_base.html" %}
+
+{% block content %}
+
+
+  <form>
+          <b >ФИО</b>
+
+            <p>{{ profile.FIO }}</p>
+        <b>Дата рождения</b>
+            <p>{{ profile.Date }}</p>
+  <b>Научная степень</b>
+            <p>{{ profile.ID_academic_degree.Name }}</p>
+  <b>Научное звание</b>
+            <p>{{ profile.ID_academic_title.Name }}</p>
+  <b>Должность</b>
+            <p>{{ profile.ID_position.Name }}</p>
+  <b>Факультет</b>
+            <p>{{ profile.ID_department.ID_faculty.Name }}</p>
+   <b>Кафедра</b>
+            <p>{{ profile.ID_department.Name }}</p>
+
+
+        </form>
+    <br>
+    <a class="btn btn-outline-secondary btn-sm" href="">Редактировать</a>
+  {% endblock %}

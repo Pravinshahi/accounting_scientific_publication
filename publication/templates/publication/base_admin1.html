@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% load staticfiles %}
+    <title>Учет научных публикаций</title>
+    <link href="{% static 'publication/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'publication/css/dashboard.css' %}" type="text/css" />
+      <link rel="stylesheet" href="{% static 'publication/css/menu.css' %}" type="text/css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+
+
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'admin_index' %}">Учет научных публикаций</a>
+
+
+
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="">Выход</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+                    <ul id="accordion" class="accordion">
+                        <li>
+                            <div class="link"><i class="fa fa-database"></i><a href="{% url 'admin_index' %}">Главная</a><i class="fa fa-chevron-down"></i></div>
+                        </li>
+                        <li>
+                            <div class="link"><i class="fa fa-code"></i>Публикации<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="">Опубликованные</a></li>
+                                <li><a href="">Отклоненные</a></li>
+                                <li><a href="">Ожидают подтверждения</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link"><i class="fa fa-code"></i>Справочники<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <!--<li><a href="">Издательства</a></li>-->
+                                <li><a href="{% url 'bibliographic' %}">Библиографические базы</a></li>
+                                <li><a href="{% url 'staff' %}">Сотрудники</a></li>
+                                <li><a href="{% url 'magazines' %}">Журналы/сборники</a></li>
+                                <li><a href="">Издательства</a></li>
+                                <li><a href="{% url 'faculty' %}">Факультет</a></li>
+                                <li><a href="{% url 'department' %}">Кафедра</a></li>
+                            </ul>
+                        </li>
+                         <li>
+                            <div class="link"><i class="fa fa-code"></i>Отчеты<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="">Публикации по кафедрам</a></li>
+                                <li><a href="">Публикации по факультетам</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                </ul>
+            </div>
+        </nav>
+
+
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+        {% block content %}
+
+        {% endblock %}
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {% load staticfiles %}
+
+  <script src="{% static 'publication/js/menu.js' %}"> </script>
+
+  </body>
+</html>

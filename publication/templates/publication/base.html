@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Учет научных публикаций</title>
 
      <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -15,6 +15,7 @@
           {% load staticfiles %}
     <!-- Custom styles for this template -->
       <link rel="stylesheet" href="{% static 'publication/css/dashboard.css' %}" type="text/css" />
+      <link rel="stylesheet" href="{% static 'publication/css/menu.css' %}" type="text/css" />
 
 
   </head>
@@ -25,37 +26,55 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Введите поисковой запрос" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Выход</a>
+          <a class="nav-link" href="{% url 'login'  %}">Выход</a>
         </li>
       </ul>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <span data-feather="home"></span>
-                  Главная <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
-                  Мои публикации
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Отчеты
-                </a>
-              </li>
-            </ul>
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
-          </div>
+                    <ul id="accordion" class="accordion">
+                        <li>
+                            <div class="link"><i class="fa fa-database"></i>Справочники<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="">Услуги</a></li>
+                                <li><a href="">Запчасти</a></li>
+                                <li><a href="">Устройства</a></li>
+                                <li><a href="">Производители</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link"><i class="fa fa-code"></i>Документы<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="">Акт приема</a></li>
+                                <li><a href="">Договор на поставку</a></li>
+                                <li><a href="">Акт выполненных работ</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link"><i class="fa fa-mobile"></i>Учет<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="">Обращения</a></li>
+                                <li><a href="">Запчасти в наличие</a></li>
+                                <li><a href="">Запчасти реализованные</a></li>
+                                 <li><a href="">Платежи</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="link"><i class="fa fa-globe"></i>Планы<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="">Закупок</a></li>
+                                <li><a href="">Закупок</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
         </nav>
 
 {% block content %}
@@ -69,6 +88,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {% load staticfiles %}
+    <script src="static/publication/js/menu.js"> </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="static/publication/js/jquery-slim.min.js"><\/script>')</script>
     <script src="static/publication/js/popper.min.js"></script>
@@ -79,3 +99,5 @@
     <script>
       feather.replace()
     </script>
+  </body>
+</html>

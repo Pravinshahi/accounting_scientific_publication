@@ -1,0 +1,34 @@
+ {% extends "publication/base_admin1.html" %}
+
+{% block content %}
+ <main role="main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Библиографические базы</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+              </div>
+            </div>
+          </div>
+
+<a class="btn btn-outline-secondary btn-sm" href="{% url 'biblio_add' %}">Добавить</a>
+    <div><br></div>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Редактировать</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for bib in biblio %}
+                <tr>
+                  <td>{{ bib.Name  }}</td>
+                    <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'biblio_update' id=bib.ID_bibliographic_database  %}">Редактировать</a></td>
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </main>
+{% endblock %}

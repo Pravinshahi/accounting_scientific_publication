@@ -1,0 +1,17 @@
+{% extends "publication/base_admin1.html" %}
+
+{% block content %}
+<row>
+        <form action="{% url 'magazines'  %}" method="POST">
+          <div class="form-group">
+          <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
+            <label>Название</label>
+              <input type="text" required class="form-control" name="name" id="name">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Добавить</button>
+          </div>
+        </form>
+</row>
+
+{% endblock %}

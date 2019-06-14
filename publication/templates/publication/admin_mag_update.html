@@ -1,0 +1,16 @@
+{% extends "publication/base_admin1.html" %}
+
+{% block content %}
+<row>
+        <form action="{% url 'magazines'  %}" method="POST">
+          <div class="form-group">
+          <input type="hidden" required class="form-control" name="_method" id="_method" value = "PUT">
+           <input type="hidden" required class="form-control" name="new_id" id="new_id" value = "{{ magazine.ID_magazine }}">
+              <label>Название</label>
+              <input type="text" required class="form-control" name="name" id="name" value = "{{ magazine.Name}}">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Обновить</button>
+          </div>
+        </form>
+{% endblock %}

@@ -1,0 +1,47 @@
+ {% extends "publication/base_admin1.html" %}
+
+{% block content %}
+ <main role="main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Сотрудники</h1>
+          </div>
+
+<a class="btn btn-outline-secondary btn-sm" href="{% url 'staff_add' %}">Добавить</a>
+    <div><br></div>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>ФИО</th>
+                    <th>Дата рождения</th>
+                    <th>Кафедра</th>
+                    <th>Факультет</th>
+                    <th>Научное звание</th>
+                    <th>Научное степень</th>
+                    <th>Должность</th>
+                    <th>Логин</th>
+                    <th>Пароль</th>
+                  <th>Редактировать</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for employee in employees %}
+                <tr>
+                  <td>{{ employee.FIO  }}</td>
+                    <td>{{ employee.Date  }}</td>
+                    <td>{{ employee.ID_department.Name  }}</td>
+                    <td>{{ employee.ID_department.ID_faculty.Name  }}</td>
+                    <td>{{ employee.ID_academic_title.Name  }}</td>
+                    <td>{{ employee.ID_academic_degree.Name  }}</td>
+                    <td>{{ employee.ID_position.Name }}</td>
+                    <td>{{ employee.login }}</td>
+                    <td>{{ employee.password}}</td>
+                    <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'staff_update' id=employee.ID_employee  %}">Редактировать</a></td>
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </main>
+{% endblock %}
