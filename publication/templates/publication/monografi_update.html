@@ -10,6 +10,8 @@
             <form action="{% url 'my_monografi' %}" method="POST">
                 <div class="form-group">
                     <input type="hidden" required class="form-control" name="_method" id="_method" value = "PUT">
+                    <input type="hidden" required class="form-control" name="new_id" id="new_id" value = "{{ publication.ID_publication }}">
+
                     <label>Название *</label>
                     <input type="text" required class="form-control" name="name" id="name" value = "{{ publication.Name }}">
 
@@ -62,7 +64,8 @@
 
                 <label>Прикрепленный файл: {{ publication.File }}</label><br>
                     <label>Файл в формате PDF *</label><br>
-                    <button class="btn btn-outline-primary btn-sm" type="submit">Загрузить другой</button><br>
+                    <label for="files" class="btn btn-outline-primary btn-sm">Выбрать другой файл</label>
+                    <input id="files" style="visibility:hidden;" type="file" name="document">
 
                     <label>Примечание</label>
                     <input type="text"  class="form-control" name="note" id="note" value = "{{ publication.Note }}">

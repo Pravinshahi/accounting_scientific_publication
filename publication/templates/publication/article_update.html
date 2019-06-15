@@ -1,0 +1,92 @@
+{% extends "publication/new_base.html" %}
+
+{% block content %}
+
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Редактировать статью</h1>
+        </div>
+        <row>
+            <form action="{% url 'my_article' %}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" required class="form-control" name="_method" id="_method" value = "PUT">
+                    <input type="hidden" required class="form-control" name="new_id" id="new_id" value = "{{ publication.ID_publication }}">
+                    <label>Название *</label>
+                    <input type="text" required class="form-control" name="name" id="name" value = "{{ publication.Name }}">
+                    <label>Тип статьи *</label>
+                    <select id="RequestType" class="form-control" name="type" id="type">
+                        {% for t in type %}
+                            <option selected value= "{{ t.ID_type_article }}">
+                                {{ t.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Журнал/сборник</label>
+                    <select id="RequestType" class="form-control" name="magazine" id="magazine">
+                        {% for magazine in magazines %}
+                            <option selected value= "{{ magazine.ID_magazine }}">
+                                {{ magazine.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label>DOI</label>
+                    <input type="text" class="form-control" name="DOI" id="DOI" value = "{{ publication.DOI }}">
+
+                    <label>Год</label>
+                    <select id="RequestType" class="form-control" name="year" id="year">
+                        {% for year in years %}
+                            <option selected value= "{{ year.ID_year }}">
+                                {{ year.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Издательство</label>
+                    <select id="RequestType" class="form-control" name="publisher" id="publisher">
+                        {% for publisher in publishers %}
+                            <option selected value= "{{ publisher.ID_publisher }}">
+                                {{ publisher.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Том</label>
+                    <input type="text" class="form-control" name="tom" id="tom" value = "{{ publication.Tom }}">
+                    <label>Номер выпуска</label>
+                    <input type="text" class="form-control" name="number" id="number" value = "{{ publication.Issue_number }}">
+                    <label>Страница начальная</label>
+                    <input type="text" class="form-control" name="begin" id="begin" value = "{{ publication.Initial_page}}">
+                    <label>Страница конечная</label>
+                    <input type="text" class="form-control" name="end" id="end" value = "{{ publication.Page_final}}">
+
+                    <label>Библиографическая база</label>
+                    <select id="RequestType" class="form-control" name="biblio" id="biblio">
+                        {% for biblio in biblios %}
+                            <option selected value= "{{ biblio.ID_bibliographic_database }}">
+                                {{ biblio.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Ссылка на сайт</label>
+                    <input type="text" class="form-control" name="Link" id="Link" value = "{{ publication.Link }}">
+
+                    <label>Прикрепленный файл: {{ publication.File }}</label><br>
+                    <label>Файл в формате PDF *</label><br>
+                    <label for="files" class="btn btn-outline-primary btn-sm">Выбрать файл</label>
+                    <input id="files" style="visibility:hidden;" type="file" name="document">
+
+                    <br><label>Примечание</label>
+                    <input type="text" class="form-control" name="note" id="note" value = "{{ publication.Note }}">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Сохранить</button>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Отмена</a>
+                </div>
+            </form>
+    </main>
+    {% load staticfiles %}
+    <script src="static/publication/js/upload_file.js"> </script>
+{% endblock %}

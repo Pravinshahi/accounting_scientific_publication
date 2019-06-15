@@ -1,111 +1,97 @@
- {% extends "publication/new_base.html" %}
+{% extends "publication/new_base.html" %}
 
 {% block content %}
 
-        <main role="main">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Добавить пособие</h1>
+        </div>
+        <row>
+            <form action="{% url 'my_study' %}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
+                    <label>Название *</label>
+                    <input type="text" required class="form-control" name="name" id="name">
+                    <label>Тип *</label>
+                    <select id="RequestType" class="form-control" name="benefit" id="benefit">
+                        {% for benefit in benefits %}
+                            <option selected value= "{{ benefit.ID_benefit_type }}">
+                                {{ benefit.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
-          </div>
+                    <label>DOI</label>
+                    <input type="text" class="form-control" name="DOI" id="DOI">
 
-<row>
+                    <label>Год</label>
+                    <select id="RequestType" class="form-control" name="year" id="year">
+                        {% for year in years %}
+                            <option selected value= "{{ year.ID_year }}">
+                                {{ year.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
+                    <label>Город</label>
+                    <select id="RequestType" class="form-control" name="city" id="city">
+                        {% for city in cities %}
+                            <option selected value= "{{ city.ID_city }}">
+                                {{ city.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
+                    <label>Издательство</label>
+                    <select id="RequestType" class="form-control" name="publisher" id="publisher">
+                        {% for publisher in publishers %}
+                            <option selected value= "{{ publisher.ID_publisher }}">
+                                {{ publisher.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
-        <form action="" method="POST">
-          <div class="form-group">
-          <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
-          <label>Название</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-              <label>Тип</label>
-                            <select id="RequestType" class="form-control" name="id_status" id="id_status">
+                    <label>ISBN</label>
+                    <input type="text" class="form-control" name="ISBN" id="ISBN">
 
-                                    <option selected value= "">
+                    <label>Гриф</label>
+                    <select id="RequestType" class="form-control" name="vulture" id="vulture">
+                        {% for vulture in vulturies %}
+                            <option selected value= "{{ vulture.ID_vulture }}">
+                                {{ vulture.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
-                                    </option>
+                    <label>Число страниц</label>
+                    <input type="text" class="form-control" name="number_pages" id="number_pages">
 
-                            </select>
+                    <label>Библиографическая база</label>
+                    <select id="RequestType" class="form-control" name="biblio" id="biblio">
+                        {% for biblio in biblios %}
+                            <option selected value= "{{ biblio.ID_bibliographic_database }}">
+                                {{ biblio.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
-          <label>DOI</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-          <label>Автор: </label>
-           <label>Иванов Иван Иванович</label><br>
-          <div class="btn-group">
-  <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Добавить соавтора
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="">Внешний</a>
-    <a class="dropdown-item" href="">Сотрудник</a>
-    <a class="dropdown-item" href="">Студент</a>
+                    <label>Ссылка на сайт</label>
+                    <input type="text" class="form-control" name="Link" id="Link">
 
-  </div>
-</div>
-                    <br><label>Год</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
+                    <label>Файл в формате PDF *</label><br>
+                    <label for="files" class="btn btn-outline-primary btn-sm">Выбрать файл</label>
+                    <input id="files" style="visibility:hidden;" type="file" name="document">
 
-           <label>Город</label>
-                            <select id="RequestType" class="form-control" name="id_status" id="id_status">
+                    <br><label>Примечание</label>
+                    <input type="text" class="form-control" name="note" id="note">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Добавить</button>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Отмена</a>
+                </div>
+            </form>
+    </main>
 
-                                    <option selected value= "">
-
-                                    </option>
-
-                            </select>
-
-               <label>Издательство</label>
-                            <select id="RequestType" class="form-control" name="id_status" id="id_status">
-
-                                    <option selected value= "">
-
-                                    </option>
-
-                            </select>
-
-              <label>Число страниц</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-              <label>ISBN</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-              <label>Гриф</label>
-                            <select id="RequestType" class="form-control" name="id_status" id="id_status">
-
-                                    <option selected value= "">
-
-                                    </option>
-
-                            </select>
-              <br>
-
-               <label>
-
-          <input type="checkbox" value="remember-me">Googlescholar
-        </label>
-               <br>
-               <label>
-          <input type="checkbox" value="remember-me">РИНЦ
-
-        </label>
-<br>
-              <label>Ссылка на сайт</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-
-               <label>Файл в формате PDF</label><br>
-              <button class="btn btn-outline-primary btn-sm" type="sbumit">Прикрепить</button><br>
-
-              <label>Примечание</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-          </div>
-          <div class="form-group">
-            <button class="btn btn-outline-primary btn-sm" type="sbumit">Добавить</button>
-             <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Отмена</a>
-          </div>
-        </form>
-
-
-
-
-
-
-        </main>
-
- {% endblock %}
+    {% load staticfiles %}
+    <script src="static/publication/js/upload_file.js"> </script>
+{% endblock %}

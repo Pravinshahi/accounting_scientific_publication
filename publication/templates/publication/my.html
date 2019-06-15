@@ -27,8 +27,9 @@
                         <a class="dropdown-item" href="">Монография</a>
                         <a class="dropdown-item" href="">Пособие</a>
                         <a class="dropdown-item" href="">Статья</a>
-                        <a class="dropdown-item" href="">НИР</a>
+                        <a class="dropdown-item" href="">Отчет по НИР</a>
                         <a class="dropdown-item" href="">Патенты</a>
+                        <a class="dropdown-item" href="">Свидетельство на ПО</a>
 
                     </div>
                 </div>
@@ -42,9 +43,11 @@
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'my_monografi' %}">Монография</a>
-                <a class="dropdown-item" href="{% url 'my_publication_add_study' %}">Пособие</a>
-                <a class="dropdown-item" href="{% url 'my_publication_add_article' %}">Статья</a>
-                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">НИР</a>
+                <a class="dropdown-item" href="{% url 'my_study' %}">Пособие</a>
+                <a class="dropdown-item" href="{% url 'my_article' %}">Статья</a>
+                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">Отчет по НИР</a>
+                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">Патент</a>
+                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">Свидетельство на ПО</a>
 
             </div>
         </div>
@@ -71,15 +74,22 @@
                         <td>{{ publication.ID_type_publication.Name }}</td>
                         <td>{{ publication.ID_employee.ID_department.ID_faculty.Name }}</td>
                         <td>{{ publication.ID_status.Name }}</td>
+                        <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'publication_more' id=publication.ID_publication  %}">Подробнее</a></td>
 
-                        {% if publication.ID_type_publication.Name == "Монография" %}
-                            <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'monografi_more' id=publication.ID_publication  %}">Подробнее</a></td>
-                        {% endif %}
 
                         {% if publication.ID_status.Name != "Опубликовано" %}
                             {% if publication.ID_type_publication.Name == "Монография" %}
                                 <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_monografi_update' id=publication.ID_publication  %}">Редактировать</a></td>
                             {% endif %}
+
+                             {% if publication.ID_type_publication.Name == "Пособие" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_study_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Статья" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_article_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
 
                             <td>
                                 <form action="{% url 'my_publication' %}" method="POST">

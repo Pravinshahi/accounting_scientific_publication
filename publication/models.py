@@ -10,6 +10,22 @@ class Status(models.Model):
     class Meta:
         db_table = 'status'
 
+#Тип пособия
+class Benefit_type(models.Model):
+    ID_benefit_type = models.AutoField(primary_key=True)
+    Name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'benefit_type'
+
+#Тип статьи
+class Type_article(models.Model):
+    ID_type_article = models.AutoField(primary_key=True)
+    Name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'type_article'
+
 #Библиографическая база
 class Bibliographic_database(models.Model):
     ID_bibliographic_database = models.AutoField(primary_key=True)
@@ -35,6 +51,14 @@ class Magazine(models.Model):
 
     class Meta:
         db_table = 'magazine'
+
+#Гриф
+class Vulture (models.Model):
+    ID_vulture = models.AutoField(primary_key=True)
+    Name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'vulture'
 
 #Город
 class City(models.Model):
@@ -139,7 +163,9 @@ class Publication(models.Model):
     ID_year = models.ForeignKey(Year, models.DO_NOTHING)
     File = models.CharField(max_length=255)
     ID_publisher = models.ForeignKey(Publisher, models.DO_NOTHING)
-
+    ID_benefit_type = models.ForeignKey(Benefit_type, models.DO_NOTHING)
+    ID_vulture = models.ForeignKey(Vulture, models.DO_NOTHING)
+    ID_type_article = models.ForeignKey(Type_article, models.DO_NOTHING)
 
     class Meta:
         db_table = 'publication'
