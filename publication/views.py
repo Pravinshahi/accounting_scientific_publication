@@ -92,6 +92,10 @@ def my_monografi(request):
             year = get_object_or_404(Year, ID_year=re_data['year'])
             city = get_object_or_404(City,ID_city = re_data['city'])
             publisher = get_object_or_404(Publisher,ID_publisher = re_data['publisher'])
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, Name='Отсутствует')
 
             uploaded_file = request.FILES['document']
             fs = FileSystemStorage()
@@ -102,6 +106,8 @@ def my_monografi(request):
                                        Issue_number=re_data['number_pages'], ISBN=re_data['ISBN'], ID_status=status,
                                        Date=a, ID_year =year, ID_city = city, File = uploaded_file.name,
                                        ID_magazine=magezine, ID_type_publication=type_publication, ID_employee=employee,
+                                       ID_benefit_type = benefit, ID_vulture = vulture, ID_type_article = type_article,
+                                       ID_source_finance = finance
                                        )
             return redirect('my_publication')
 
@@ -170,7 +176,7 @@ def publication_more(request,id):
         return render(request, 'publication/patent_more.html', {'publication': p})
 
     if p.ID_type_publication.Name == "Свидетельство на ПО":
-        return render(request, 'publication/', {'publication': p})
+        return render(request, 'publication/software_more.html', {'publication': p})
 
 #Мое пособие
 @csrf_exempt
@@ -195,6 +201,8 @@ def my_study(request):
             vulture = get_object_or_404(Vulture,ID_vulture = re_data['vulture'])
             publisher = get_object_or_404(Publisher,ID_publisher = re_data['publisher'])
             benefit = get_object_or_404(Benefit_type, ID_benefit_type=re_data['benefit'])
+            type_article = get_object_or_404(Type_article, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, Name='Отсутствует')
 
             uploaded_file = request.FILES['document']
             fs = FileSystemStorage()
@@ -205,7 +213,7 @@ def my_study(request):
                                        Issue_number=re_data['number_pages'], ISBN=re_data['ISBN'], ID_status=status,
                                        Date=a, ID_year =year, ID_city = city, File = uploaded_file.name,
                                        ID_magazine=magezine, ID_type_publication=type_publication, ID_employee=employee,
-                                       ID_vulture = vulture)
+                                       ID_vulture = vulture, ID_type_article = type_article, ID_source_finance = finance)
             return redirect('my_publication')
 
         if re_data['_method'] == "PUT":
@@ -276,6 +284,7 @@ def my_article(request):
             publisher = get_object_or_404(Publisher, ID_publisher=re_data['publisher'])
             benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
             vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, Name='Отсутствует')
 
             uploaded_file = request.FILES['document']
             fs = FileSystemStorage()
@@ -287,8 +296,7 @@ def my_article(request):
                                        ID_magazine=magezine, ID_type_publication=type_publication, ID_employee=employee,
                                        ID_type_article = type_article, Tom = re_data['tom'], Initial_page = re_data['begin'],
                                        Page_final = re_data['end'],Issue_number = re_data['number'],ID_benefit_type = benefit,
-                                       ID_vulture = vulture
-                                       )
+                                       ID_vulture = vulture, ID_source_finance = finance)
             return redirect('my_publication')
 
         if re_data['_method'] == "PUT":
@@ -335,6 +343,7 @@ def my_article_update(request,id):
     b = Bibliographic_database.objects.all()
     t = Type_article.objects.all()
 
+
     publication = get_object_or_404(Publication, ID_publication=id)
     return render(request, 'publication/article_update.html', {'magazines':m, 'years':y, 'publishers':p, 'biblio':b,
                                                                'type': t, 'publication': publication})
@@ -344,26 +353,217 @@ def my_article_update(request,id):
 #Мой отчет по НИР
 @csrf_exempt
 def my_NIR(request):
-    return render(request, 'publication/NIR.html',{})
+    y = Year.objects.all()
+    s = Source_finance.objects.all()
+    b = Bibliographic_database.objects.all()
 
-def my_NIR_update(request):
-    return render(request, 'publication/NIR_update.html',{})
+    if request.method == 'POST':
+        re_data = request.POST
+        if re_data['_method'] == "POST":
+            a = datetime.datetime.today().strftime("%Y-%m-%d")
+            status = get_object_or_404(Status, Name='Ожидает подтверждения')
+            magezine = get_object_or_404(Magazine, Name = 'Отсутствует')
+            type_publication = get_object_or_404(Type_publication, Name='Отчет по НИР')
+            employee = get_object_or_404(Employee, FIO='Елисеев Петр Витальевич')
+            year = get_object_or_404(Year, ID_year=re_data['year'])
+            city = get_object_or_404(City, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name ='Отсутствует')
+            publisher = get_object_or_404(Publisher, Name='Отсутствует')
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, ID_source_finance = re_data['finance'])
+
+            uploaded_file = request.FILES['document']
+            fs = FileSystemStorage()
+            fs.save(employee.login + '/' + uploaded_file.name, uploaded_file)
+
+            Publication.objects.create(Name=re_data['name'], Note=re_data['note'], Link=re_data['Link'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       File=uploaded_file.name, ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number']
+                                       )
+            return redirect('my_publication')
+
+        if re_data['_method'] == "PUT":
+            print('fdsfsdsdfg')
+            a = datetime.datetime.today().strftime("%Y-%m-%d")
+            status = get_object_or_404(Status, Name='Ожидает подтверждения')
+            magezine = get_object_or_404(Magazine, Name='Отсутствует')
+            type_publication = get_object_or_404(Type_publication, Name='Отчет по НИР')
+            employee = get_object_or_404(Employee, FIO='Елисеев Петр Витальевич')
+            year = get_object_or_404(Year, ID_year=re_data['year'])
+            city = get_object_or_404(City, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name='Отсутствует')
+            publisher = get_object_or_404(Publisher, Name='Отсутствует')
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, ID_source_finance=re_data['finance'])
+
+            try:
+                uploaded_file = request.FILES['document']
+                fs = FileSystemStorage()
+                fs.save(employee.login + '/' + uploaded_file.name, uploaded_file)
+                Publication.objects.filter(ID_publication=re_data['new_id']).update(Name=re_data['name'], Note=re_data['note'], Link=re_data['Link'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       File=uploaded_file.name, ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number'])
+            except:
+                Publication.objects.filter(ID_publication=re_data['new_id']).update(Name=re_data['name'], Note=re_data['note'], Link=re_data['Link'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number'])
+
+            return redirect('my_publication')
+
+    return render(request, 'publication/NIR.html',{'finance':s, 'year':y, 'biblio':b})
+
+def my_NIR_update(request,id):
+    publication = get_object_or_404(Publication, ID_publication=id)
+    y = Year.objects.all()
+    s = Source_finance.objects.all()
+    b = Bibliographic_database.objects.all()
+
+    return render(request, 'publication/NIR_update.html',{'finance':s, 'year':y, 'biblio':b, 'publication':publication})
 
 #Мой патент
 @csrf_exempt
 def my_patent(request):
+    if request.method == 'POST':
+        re_data = request.POST
+        if re_data['_method'] == "POST":
+            a = datetime.datetime.today().strftime("%Y-%m-%d")
+            status = get_object_or_404(Status, Name='Ожидает подтверждения')
+            magezine = get_object_or_404(Magazine, Name = 'Отсутствует')
+            type_publication = get_object_or_404(Type_publication, Name='Патент')
+            employee = get_object_or_404(Employee, FIO='Елисеев Петр Витальевич')
+            year = get_object_or_404(Year,Name='Отсутствует')
+            city = get_object_or_404(City, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name ='Отсутствует')
+            publisher = get_object_or_404(Publisher, Name='Отсутствует')
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, Name='Отсутствует')
+
+            uploaded_file = request.FILES['document']
+            fs = FileSystemStorage()
+            fs.save(employee.login + '/' + uploaded_file.name, uploaded_file)
+
+            Publication.objects.create(Name=re_data['name'], Note=re_data['note'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       File=uploaded_file.name, ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number']
+                                       )
+            return redirect('my_publication')
+
+        if re_data['_method'] == "PUT":
+            a = re_data['date']
+            status = get_object_or_404(Status, Name='Ожидает подтверждения')
+            magezine = get_object_or_404(Magazine, Name='Отсутствует')
+            type_publication = get_object_or_404(Type_publication, Name='Патент')
+            employee = get_object_or_404(Employee, FIO='Елисеев Петр Витальевич')
+            year = get_object_or_404(Year,Name='Отсутствует')
+            city = get_object_or_404(City, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name='Отсутствует')
+            publisher = get_object_or_404(Publisher, Name='Отсутствует')
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance,Name='Отсутствует')
+
+            try:
+                uploaded_file = request.FILES['document']
+                fs = FileSystemStorage()
+                fs.save(employee.login + '/' + uploaded_file.name, uploaded_file)
+                Publication.objects.filter(ID_publication=re_data['new_id']).update(Name=re_data['name'], Note=re_data['note'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       File=uploaded_file.name, ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number'])
+            except:
+                Publication.objects.filter(ID_publication=re_data['new_id']).update(Name=re_data['name'], Note=re_data['note'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number'])
+
+            return redirect('my_publication')
+
     return render(request, 'publication/patent.html',{})
 
-def my_patent_update(request):
-    return render(request, 'publication/patent_update.html',{})
+def my_patent_update(request,id):
+    publication = get_object_or_404(Publication, ID_publication=id)
+    return render(request, 'publication/patent_update.html',{'publication':publication})
 
 #Мое свидетельство на ПО
 @csrf_exempt
 def my_software(request):
+    if request.method == 'POST':
+        re_data = request.POST
+        if re_data['_method'] == "POST":
+            a = datetime.datetime.today().strftime("%Y-%m-%d")
+            status = get_object_or_404(Status, Name='Ожидает подтверждения')
+            magezine = get_object_or_404(Magazine, Name = 'Отсутствует')
+            type_publication = get_object_or_404(Type_publication, Name='Свидетельство на ПО')
+            employee = get_object_or_404(Employee, FIO='Елисеев Петр Витальевич')
+            year = get_object_or_404(Year,Name='Отсутствует')
+            city = get_object_or_404(City, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name ='Отсутствует')
+            publisher = get_object_or_404(Publisher, Name='Отсутствует')
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance, Name='Отсутствует')
+
+            uploaded_file = request.FILES['document']
+            fs = FileSystemStorage()
+            fs.save(employee.login + '/' + uploaded_file.name, uploaded_file)
+
+            Publication.objects.create(Name=re_data['name'], Note=re_data['note'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       File=uploaded_file.name, ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number']
+                                       )
+            return redirect('my_publication')
+
+        if re_data['_method'] == "PUT":
+            a = re_data['date']
+            status = get_object_or_404(Status, Name='Ожидает подтверждения')
+            magezine = get_object_or_404(Magazine, Name='Отсутствует')
+            type_publication = get_object_or_404(Type_publication, Name='Свидетельство на ПО')
+            employee = get_object_or_404(Employee, FIO='Елисеев Петр Витальевич')
+            year = get_object_or_404(Year,Name='Отсутствует')
+            city = get_object_or_404(City, Name='Отсутствует')
+            type_article = get_object_or_404(Type_article, Name='Отсутствует')
+            publisher = get_object_or_404(Publisher, Name='Отсутствует')
+            benefit = get_object_or_404(Benefit_type, Name='Отсутствует')
+            vulture = get_object_or_404(Vulture, Name='Отсутствует')
+            finance = get_object_or_404(Source_finance,Name='Отсутствует')
+
+            try:
+                uploaded_file = request.FILES['document']
+                fs = FileSystemStorage()
+                fs.save(employee.login + '/' + uploaded_file.name, uploaded_file)
+                Publication.objects.filter(ID_publication=re_data['new_id']).update(Name=re_data['name'], Note=re_data['note'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       File=uploaded_file.name, ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number'])
+            except:
+                Publication.objects.filter(ID_publication=re_data['new_id']).update(Name=re_data['name'], Note=re_data['note'],
+                                       ID_publisher=publisher, ID_status=status, Date=a, ID_year=year, ID_city=city,
+                                       ID_magazine=magezine, ID_type_publication=type_publication,
+                                       ID_employee=employee, ID_type_article = type_article,ID_benefit_type = benefit,
+                                       ID_vulture = vulture, ID_source_finance = finance, State_registration_number = re_data['number'])
+
+            return redirect('my_publication')
     return render(request, 'publication/software.html',{})
 
-def my_software_update(request):
-    return render(request, 'publication/software_update.html',{})
+def my_software_update(request,id):
+    publication = get_object_or_404(Publication, ID_publication=id)
+    return render(request, 'publication/software_update.html',{'publication':publication})
 
 #Мои публикации
 def profile(request):

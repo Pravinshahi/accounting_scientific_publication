@@ -1,0 +1,39 @@
+{% extends "publication/new_base.html" %}
+
+{% block content %}
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Просмотр свидетельства на ПО</h1>
+        </div>
+
+        <row>
+                <div class="form-group">
+                    <b>Название</b>
+                    <p>{{ publication.Name }}</p>
+                    <b>Дата выдачи</b>
+                    <p>{{ publication.Date }}</p>
+                    <b >Номер свидетельства</b>
+                    <p>{{ publication.State_registration_number }}</p>
+
+                    <b>Прикрепленный файл</b>
+                    {% if publication.File != ""  %}
+                    <form action="{% url 'download_act_enter'%}" method="POST">
+
+                            <input type="hidden" name="id_file" value="{{ publication.ID_publication}}">
+
+
+                            <input type="submit" class="btn btn-outline-secondary btn-sm" value="Скачать">
+                        </form>
+                    {% endif %}
+
+                    {% if publication.Note != ""  %}
+                    <b>Примечание</b>
+                    <p>{{ publication.Note }}</p>
+                    {% endif %}
+
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Назад</a>
+                </div>
+    </main>
+{% endblock %}

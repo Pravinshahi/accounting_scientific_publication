@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 #Cтатус
 class Status(models.Model):
     ID_status = models.AutoField(primary_key=True)
@@ -9,6 +7,14 @@ class Status(models.Model):
 
     class Meta:
         db_table = 'status'
+
+#Источники финансирования
+class Source_finance(models.Model):
+    ID_source_finance = models.AutoField(primary_key=True)
+    Name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'source_finance'
 
 #Тип пособия
 class Benefit_type(models.Model):
@@ -166,6 +172,8 @@ class Publication(models.Model):
     ID_benefit_type = models.ForeignKey(Benefit_type, models.DO_NOTHING)
     ID_vulture = models.ForeignKey(Vulture, models.DO_NOTHING)
     ID_type_article = models.ForeignKey(Type_article, models.DO_NOTHING)
+    ID_source_finance = models.ForeignKey(Source_finance, models.DO_NOTHING)
+    State_registration_number = models.CharField(max_length=255)
 
     class Meta:
         db_table = 'publication'

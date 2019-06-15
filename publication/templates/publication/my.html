@@ -45,9 +45,9 @@
                 <a class="dropdown-item" href="{% url 'my_monografi' %}">Монография</a>
                 <a class="dropdown-item" href="{% url 'my_study' %}">Пособие</a>
                 <a class="dropdown-item" href="{% url 'my_article' %}">Статья</a>
-                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">Отчет по НИР</a>
-                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">Патент</a>
-                <a class="dropdown-item" href="{% url 'my_publication_add_NIR' %}">Свидетельство на ПО</a>
+                <a class="dropdown-item" href="{% url 'my_NIR' %}">Отчет по НИР</a>
+                <a class="dropdown-item" href="{% url 'my_patent' %}">Патент</a>
+                <a class="dropdown-item" href="{% url 'my_software' %}">Свидетельство на ПО</a>
 
             </div>
         </div>
@@ -88,6 +88,18 @@
 
                             {% if publication.ID_type_publication.Name == "Статья" %}
                                 <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_article_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Отчет по НИР" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_NIR_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Патент" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_patent_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Свидетельство на ПО" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'my_software_update' id=publication.ID_publication  %}">Редактировать</a></td>
                             {% endif %}
 
 

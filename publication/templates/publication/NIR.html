@@ -1,76 +1,62 @@
- {% extends "publication/new_base.html" %}
+{% extends "publication/new_base.html" %}
 
 {% block content %}
 
-        <main role="main">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Добавить НИР</h1>
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Добавить отчет по НИР</h1>
+        </div>
+        <row>
+            <form action="{% url 'my_NIR' %}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
+                    <label>Название *</label>
+                    <input type="text" required class="form-control" name=name id="name">
+                    <label>Год *</label>
+                    <select id="RequestType" class="form-control" name="year" id="year">
+                        {% for y in year %}
+                            <option selected value= "{{ y.ID_year }}">
+                                {{ y.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
-          </div>
+                    <label>Источник финансирования *</label>
+                    <select id="RequestType" class="form-control" name="finance" id="finance">
+                        {% for f in finance %}
+                            <option selected value= "{{ f.ID_source_finance }}">
+                                {{ f.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
-<row>
+                    <label>Библиографическая база *</label>
+                    <select id="RequestType" class="form-control" name="biblio" id="biblio">
+                        {% for b in biblio %}
+                            <option selected value= "{{ b.ID_bibliographic_database }}">
+                                {{ b.Name }}
+                            </option>
+                        {% endfor %}
+                    </select>
 
+                    <label>Номер государственной регистрации </label>
+                    <input type="text" required class="form-control" name="number" id="number">
+                    <label>Файл в формате PDF *</label><br>
+                    <label for="files" class="btn btn-outline-primary btn-sm">Выбрать файл</label>
+                    <input id="files" style="visibility:hidden;" type="file" name="document">
 
+                    <label>Ссылка на сайт</label>
+                    <input type="text" class="form-control" name="Link" id="Link">
+                    <label>Примечание</label>
+                    <input type="text" class="form-control" name="note" id="note">
 
-        <form action="" method="POST">
-          <div class="form-group">
-          <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
-          <label>Название</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-          <label>Автор: </label>
-           <label>Иванов Иван Иванович</label><br>
-          <div class="btn-group">
-  <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Добавить соавтора
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="">Внешний</a>
-    <a class="dropdown-item" href="">Сотрудник</a>
-    <a class="dropdown-item" href="">Студент</a>
-
-  </div>
-</div>
-                    <br><label>Год</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-
-
-
-              <label>Источник финансирования</label>
-                            <select id="RequestType" class="form-control" name="id_status" id="id_status">
-
-                                    <option selected value= "">
-
-                                    </option>
-
-                            </select>
-
-          <input type="checkbox" value="remember-me">Googlescholar
-        </label>
-               <br>
-               <label>
-          <input type="checkbox" value="remember-me">РИНЦ
-РИНЦДа
-        </label>
-<br>
-              <label>Ссылка на сайт</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-
-               <label>Файл в формате PDF</label><br>
-              <button class="btn btn-outline-primary btn-sm" type="sbumit">Прикрепить</button><br>
-
-              <label>Примечание</label>
-                            <input type="text" required class="form-control" name="id_defect" id="id_defect">
-          </div>
-          <div class="form-group">
-            <button class="btn btn-outline-primary btn-sm" type="sbumit">Добавить</button>
-              <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Отмена</a>
-          </div>
-        </form>
-
-
-
-
-
-
-        </main>
- {% endblock %}
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Добавить</button>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Отмена</a>
+                </div>
+            </form>
+    </main>
+    {% load staticfiles %}
+<script src="static/publication/js/upload_file.js"> </script>
+{% endblock %}

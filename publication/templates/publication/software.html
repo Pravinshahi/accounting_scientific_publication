@@ -1,0 +1,36 @@
+{% extends "publication/new_base.html" %}
+
+{% block content %}
+
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Добавить свидетельство</h1>
+        </div>
+        <row>
+            <form action="{% url 'my_software' %}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" required class="form-control" name="_method" id="_method" value = "POST">
+                    <label>Название *</label>
+                    <input type="text" required class="form-control" name=name id="name">
+                    <label>Дата выдачи *</label>
+                    <input type="date" required class="form-control" name=date id="date">
+
+                    <label>Номер свидетельства *</label>
+                    <input type="text" required class="form-control" name="number" id="number">
+                    <label>Копия свидетельства<br>Файл в формате PDF *</label><br>
+                    <label for="files" class="btn btn-outline-primary btn-sm">Выбрать файл</label>
+                    <input id="files" style="visibility:hidden;" type="file" name="document">
+
+                    <label>Примечание</label>
+                    <input type="text" class="form-control" name="note" id="note">
+
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Добавить</button>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Отмена</a>
+                </div>
+            </form>
+    </main>
+    {% load staticfiles %}
+<script src="static/publication/js/upload_file.js"> </script>
+{% endblock %}
