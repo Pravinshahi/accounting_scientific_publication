@@ -10,38 +10,30 @@
             </div>
           </div>
 
-<form>
+<form action="{% url 'report_on_the_departments'  %}" method="POST">
 
     <label>Кафедра</label>
-    <select id="RequestType" class="form-control" name="id_customer" id="id_customer">
-                                {% for customer in customres %}
-                                    <option selected value= "{{ customer.Id_customer }}">
-                                        {{ customer.FIO }}
+    <select id="RequestType" class="form-control" name="id_department" id="id_department">
+                                {% for department in departments %}
+                                    <option selected value= "{{ department.ID_department }}">
+                                        {{ department.Name }}
                                     </option>
                                 {% endfor %}
                             </select>
 
-<label>Факультет</label>
-    <select id="RequestType" class="form-control" name="id_customer" id="id_customer">
-                                {% for customer in customres %}
-                                    <option selected value= "{{ customer.Id_customer }}">
-                                        {{ customer.FIO }}
-                                    </option>
-                                {% endfor %}
-                            </select>
 
 <label>Год</label>
-    <select id="RequestType" class="form-control" name="id_customer" id="id_customer">
-                                {% for customer in customres %}
-                                    <option selected value= "{{ customer.Id_customer }}">
-                                        {{ customer.FIO }}
+    <select id="RequestType" class="form-control" name="id_year" id="id_year">
+                                {% for y in year %}
+                                    <option selected value= "{{ y.ID_year }}">
+                                        {{ y.Name }}
                                     </option>
                                 {% endfor %}
                             </select>
-<br>
-<a class="btn btn-outline-secondary btn-sm" href="">Сформировать</a>
 
-
+                <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Cформировать</button>
+                </div>
 </form>
 
         </main>

@@ -5,19 +5,7 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Публикации ожидающие подтверждения</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group">
-  <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    По типу
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="">Монография</a>
-    <a class="dropdown-item" href="">Пособие</a>
-    <a class="dropdown-item" href="">Статья</a>
-      <a class="dropdown-item" href="">НИР</a>
-      <a class="dropdown-item" href="">Патенты</a>
 
-  </div>
-</div>
             </div>
           </div>
     <div><br></div>
@@ -36,22 +24,37 @@
               </thead>
               <tbody>
               {% for publication in publications %}
+                  {% if publication.ID_status.Name == "Ожидает подтверждения" %}
                 <tr>
                   <td>{{ publication.Name  }}</td>
-                  <td>{{ publication.ID_employee.FIO }}</td>
+                  <td>{{ publication.ID_user_profile.FIO }}</td>
                   <td>{{ publication.ID_type_publication.Name }}</td>
-                  <td>{{ publication.ID_employee.ID_department.ID_faculty.Name }}</td>
+                  <td>{{ publication.ID_user_profile.ID_department.ID_faculty.Name }}</td>
                     <td>{{ publication.ID_status.Name }}</td>
-                     <td><a class="btn btn-outline-secondary btn-sm" href="">Подробнее</a></td>
-                    {% if publication.ID_status.Name != "Опубликовано" %}
-                    <td><a class="btn btn-outline-secondary btn-sm" href="">Редактировать</a></td>
-                    <td>
-                        <form action="{% url 'my_publication' %}" method="POST">
-                            <input type="hidden" required class="form-control" name="_method" id="_method" value = "DELETE">
-                            <input type="hidden" required class="form-control" name="publication" id="publication" value = "{{ publication.ID_publication}}">
-                            <input type="submit" class="btn btn-outline-danger btn-sm" value="Удалить" >
-                        </form>
-                    </td>
+                     <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'publication_more' id=publication.ID_publication  %}">Подробнее</a></td>
+                {% if publication.ID_type_publication.Name == "Монография" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_monogragi_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                             {% if publication.ID_type_publication.Name == "Пособие" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_study_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Статья" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_article_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Отчет по НИР" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_NIR_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Патент" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_patent_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Свидетельство на ПО" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_software_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
                 {% endif %}
                 </tr>
                {% endfor %}

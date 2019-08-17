@@ -22,6 +22,8 @@ urlpatterns = [
     path('download_act_enter', views.download_act_enter, name='download_act_enter'),
     path('profile', views.profile, name='profile'),
     path('admin_index', views.admin_index, name='admin_index'),
+    path('admin_index_ready', views.admin_index_ready, name='admin_index_ready'),
+    path('admin_index_none', views.admin_index_none, name='admin_index_none'),
     path('biblio', views.bibliographic, name='bibliographic'),
     path('biblio/add', views.biblio_add, name='biblio_add'),
     path('biblio/update/<int:id>', views.biblio_update, name='biblio_update'),
@@ -37,7 +39,22 @@ urlpatterns = [
     path('department', views.department, name='department'),
     path('department/add', views.department_add, name='department_add'),
     path('department/update/<int:id>', views.department_update, name='department_update'),
+    path('logout', views.logout_view, name='logout_view'),
+    path('admin/monografi/update/<int:id>', views.admin_monografi_update, name='admin_monogragi_update'),
+    path('admin/artcile/update/<int:id>', views.admin_article_update, name='admin_article_update'),
+    path('admin/study/update/<int:id>', views.admin_study_update, name='admin_study_update'),
+    path('admin/patent/update/<int:id>', views.admin_patent_update, name='admin_patent_update'),
+    path('admin/software/update/<int:id>', views.admin_software_update, name='admin_software_update'),
+    path('admin/NIR/update/<int:id>', views.admin_NIR_update, name='admin_NIR_update'),
+    path('admin/publication/more/<int:id>', views.admin_publication_more, name='admin_publication_more'),
+    path('all_monografi', views.all_monografi, name='all_monografi'),
+    path('all_article', views.all_article, name='all_article'),
+    path('all_patent', views.all_patent, name='all_patent'),
+    path('all_software', views.all_software, name='all_software'),
+    path('all_NIR', views.all_NIR, name='all_NIR'),
+    path('all_study', views.all_study, name='all_study'),
+    path('report_on_the_departments', views.report_on_the_departments, name='report_on_the_departments'),
+    path('show_report_of_department', views.show_report_of_department, name='show_report_of_department'),
 
-    path('temp_add', views.temp_add, name='temp_add')
 
 ]

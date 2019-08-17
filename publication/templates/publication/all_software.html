@@ -1,0 +1,62 @@
+{% extends "publication/new_base.html" %}
+
+{% block content %}
+
+        <main role="main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Cтатьи сообщества</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+
+              </div>
+
+
+            <div class="btn-group">
+<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    По типу
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="{% url 'all_monografi' %}">Монография</a>
+    <a class="dropdown-item" href="{% url 'all_study' %}">Пособие</a>
+      <a class="dropdown-item" href="{% url 'all_NIR' %}">Отчет по НИР</a>
+      <a class="dropdown-item" href="{% url 'all_article' %}">Статья</a>
+      <a class="dropdown-item" href="{% url 'all_patent' %}">Патент</a>
+      <a class="dropdown-item" href="{% url 'all_software' %}">Свидетельство на ПО</a>
+
+
+  </div>
+</div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Автор</th>
+                    <th>Тип</th>
+                  <th>Факультет</th>
+                    <th>Подробнее</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for publication in publications %}
+                  {% if publication.ID_status.Name == "Опубликовано" %}
+                       {% if publication.ID_type_publication.Name == "Свидетельство на ПО" %}
+                <tr>
+                  <td>{{ publication.Name }}</td>
+                  <td>{{ publication.ID_user_profile.FIO  }}</td>
+                  <td>{{ publication.ID_type_publication.Name }}</td>
+                  <td>{{ publication.ID_user_profile.ID_department.ID_faculty.Name }}</td>
+                    <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'publication_more' id=publication.ID_publication  %}">Подробнее</a></td>
+                </tr>
+                           {% endif %}
+                  {% endif %}
+              {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+        </main>
+{% endblock %}

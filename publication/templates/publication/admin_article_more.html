@@ -1,0 +1,59 @@
+{% extends "publication/base_admin1.html" %}
+
+{% block content %}
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Просмотр статьи</h1>
+        </div>
+        <row>
+            <div class="form-group">
+                <b>Название</b>
+                <p>{{ publication.Name }}</p>
+                <b>Тип статьи</b>
+                <p>{{ publication.ID_type_article.Name }}</p>
+                <b >DOI</b>
+                <p>{{ publication.DOI }}</p>
+                <b >Название журнала\сборника</b>
+                <p>{{ publication.ID_magazine.Name }}</p>
+                <b >Год</b>
+                <p>{{ publication.ID_year.Name }}</p>
+                <b>Город</b>
+                <p>{{ publication.ID_city.Name }}</p>
+                <b>Издательство</b>
+                <p>{{ publication.ID_publisher.Name }}</p>
+                <b>Том</b>
+                <p>{{ publication.Tom }}</p>
+                <b>Страница начальная</b>
+                <p>{{ publication.Initial_page }}</p>
+                <b>Страница конечная</b>
+                <p>{{ publication.Page_final }}</p>
+                <b>Номер выпуска</b>
+                <p>{{ publication.Issue_number }}</p>
+
+                {% if publication.Link != ""  %}
+                    <b>Ссылка на сайт</b>
+                    <p>{{ publication.Link }}</p>
+                {% endif %}
+
+                <b>Прикрепленный файл</b>
+                {% if publication.File != ""  %}
+                    <form action="{% url 'download_act_enter'%}" method="POST">
+
+                        <input type="hidden" name="id_file" value="{{ publication.ID_publication}}">
+
+
+                        <input type="submit" class="btn btn-outline-secondary btn-sm" value="Скачать">
+                    </form>
+                {% endif %}
+
+                {% if publication.Note != ""  %}
+                    <b>Примечание</b>
+                    <p>{{ publication.Note }}</p>
+                {% endif %}
+
+            </div>
+            <div class="form-group">
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'my_publication' %}">Назад</a>
+            </div>
+    </main>
+{% endblock %}

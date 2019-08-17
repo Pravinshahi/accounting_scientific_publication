@@ -16,18 +16,22 @@
                     <label>Тип статьи *</label>
                     <select id="RequestType" class="form-control" name="type" id="type">
                         {% for t in type %}
+                            {% if t.Name != "Отсутствует" %}
                             <option selected value= "{{ t.ID_type_article }}">
                                 {{ t.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Журнал/сборник</label>
                     <select id="RequestType" class="form-control" name="magazine" id="magazine">
                         {% for magazine in magazines %}
+                            {% if magazine.Name != "Отсутствует" %}
                             <option selected value= "{{ magazine.ID_magazine }}">
                                 {{ magazine.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
@@ -37,18 +41,22 @@
                     <label>Год</label>
                     <select id="RequestType" class="form-control" name="year" id="year">
                         {% for year in years %}
+                            {% if year.Name != "Отсутствует" %}
                             <option selected value= "{{ year.ID_year }}">
                                 {{ year.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Издательство</label>
                     <select id="RequestType" class="form-control" name="publisher" id="publisher">
                         {% for publisher in publishers %}
+                            {% if publisher.Name != "Отсутствует" %}
                             <option selected value= "{{ publisher.ID_publisher }}">
                                 {{ publisher.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 

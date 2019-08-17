@@ -15,9 +15,11 @@
                     <label>Тип *</label>
                     <select id="RequestType" class="form-control" name="benefit" id="benefit">
                         {% for benefit in benefits %}
+                            {% if benefit.Name != "Отсутствует" %}
                             <option selected value= "{{ benefit.ID_benefit_type }}">
                                 {{ benefit.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
@@ -27,27 +29,33 @@
                     <label>Год</label>
                     <select id="RequestType" class="form-control" name="year" id="year">
                         {% for year in years %}
+                            {% if year.Name != "Отсутствует" %}
                             <option selected value= "{{ year.ID_year }}">
                                 {{ year.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Город</label>
                     <select id="RequestType" class="form-control" name="city" id="city">
                         {% for city in cities %}
+                            {% if city.Name != "Отсутствует" %}
                             <option selected value= "{{ city.ID_city }}">
                                 {{ city.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Издательство</label>
                     <select id="RequestType" class="form-control" name="publisher" id="publisher">
                         {% for publisher in publishers %}
+                            {% if publisher.Name != "Отсутствует" %}
                             <option selected value= "{{ publisher.ID_publisher }}">
                                 {{ publisher.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
@@ -57,9 +65,11 @@
                     <label>Гриф</label>
                     <select id="RequestType" class="form-control" name="vulture" id="vulture">
                         {% for vulture in vulturies %}
+                            {% if vulture.Name != "Отсутствует" %}
                             <option selected value= "{{ vulture.ID_vulture }}">
                                 {{ vulture.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 

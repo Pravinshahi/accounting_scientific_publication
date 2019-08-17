@@ -23,7 +23,7 @@
 
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="">Выход</a>
+          <a class="nav-link" href="{% url 'logout_view' %}">Выход</a>
         </li>
       </ul>
     </nav>
@@ -42,9 +42,9 @@
                         <li>
                             <div class="link"><i class="fa fa-code"></i>Публикации<i class="fa fa-chevron-down"></i></div>
                             <ul class="submenu">
-                                <li><a href="">Опубликованные</a></li>
-                                <li><a href="">Отклоненные</a></li>
-                                <li><a href="">Ожидают подтверждения</a></li>
+                                <li><a href="{% url 'admin_index_ready'%}">Опубликованные</a></li>
+                                <li><a href="{% url 'admin_index_none' %}">Отклоненные</a></li>
+                                <li><a href=" {% url 'admin_index' %}">Ожидают подтверждения</a></li>
                             </ul>
                         </li>
                         <li>
@@ -62,7 +62,7 @@
                          <li>
                             <div class="link"><i class="fa fa-code"></i>Отчеты<i class="fa fa-chevron-down"></i></div>
                             <ul class="submenu">
-                                <li><a href="">Публикации по кафедрам</a></li>
+                                <li><a href="{% url 'report_on_the_departments' %}">Публикации по кафедрам</a></li>
                                 <li><a href="">Публикации по факультетам</a></li>
                             </ul>
                         </li>

@@ -15,10 +15,13 @@
                     <label>Год *</label>
                     <select id="RequestType" class="form-control" name="year" id="year">
                         {% for y in year %}
+                            {% if y.Name != "Отсутствует" %}
                             <option selected value= "{{ y.ID_year }}">
                                 {{ y.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
+
                     </select>
 
                     <label>Источник финансирования *</label>
@@ -45,7 +48,7 @@
                     <label for="files" class="btn btn-outline-primary btn-sm">Выбрать файл</label>
                     <input id="files" style="visibility:hidden;" type="file" name="document">
 
-                    <label>Ссылка на сайт</label>
+                    <br><label>Ссылка на сайт</label>
                     <input type="text" class="form-control" name="Link" id="Link">
                     <label>Примечание</label>
                     <input type="text" class="form-control" name="note" id="note">

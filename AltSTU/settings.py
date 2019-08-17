@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'AltSTU.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'altstu',
+        'NAME': 'altstu_new1',
         'USER': 'user2',
         'PASSWORD': '1',
         'HOST': 'localhost',

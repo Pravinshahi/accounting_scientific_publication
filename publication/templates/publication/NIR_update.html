@@ -16,18 +16,22 @@
                     <label>Год *</label>
                     <select id="RequestType" class="form-control" name="year" id="year">
                         {% for y in year %}
+                            {% if y.Name != "Отсутствует" %}
                             <option selected value= "{{ y.ID_year }}">
                                 {{ y.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Источник финансирования *</label>
                     <select id="RequestType" class="form-control" name="finance" id="finance">
                         {% for f in finance %}
+                            {% if f.Name != "Отсутствует" %}
                             <option selected value= "{{ f.ID_source_finance }}">
                                 {{ f.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 

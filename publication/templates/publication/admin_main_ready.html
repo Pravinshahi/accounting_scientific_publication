@@ -1,0 +1,74 @@
+ {% extends "publication/base_admin1.html" %}
+
+{% block content %}
+ <main role="main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Опубликованные публикации</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group">
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="">Монография</a>
+    <a class="dropdown-item" href="">Пособие</a>
+    <a class="dropdown-item" href="">Статья</a>
+      <a class="dropdown-item" href="">НИР</a>
+      <a class="dropdown-item" href="">Патенты</a>
+
+  </div>
+</div>
+            </div>
+          </div>
+    <div><br></div>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Авторы</th>
+                    <th>Тип</th>
+                  <th>Факультет</th>
+                    <th>Статус</th>
+                    <th>Подробнее</th>
+                    <th>Редактировать</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for publication in publications %}
+                  {% if publication.ID_status.Name == "Опубликовано" %}
+                <tr>
+                  <td>{{ publication.Name  }}</td>
+                  <td>{{ publication.ID_user_profile.FIO }}</td>
+                  <td>{{ publication.ID_type_publication.Name }}</td>
+                  <td>{{ publication.ID_user_profile.ID_department.ID_faculty.Name }}</td>
+                    <td>{{ publication.ID_status.Name }}</td>
+                     <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'publication_more' id=publication.ID_publication  %}">Подробнее</a></td>
+                {% if publication.ID_type_publication.Name == "Монография" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_monogragi_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                             {% if publication.ID_type_publication.Name == "Пособие" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_study_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Статья" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_article_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Отчет по НИР" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_NIR_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Патент" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_patent_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+
+                            {% if publication.ID_type_publication.Name == "Свидетельство на ПО" %}
+                                <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_software_update' id=publication.ID_publication  %}">Редактировать</a></td>
+                            {% endif %}
+                {% endif %}
+                </tr>
+               {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </main>
+{% endblock %}

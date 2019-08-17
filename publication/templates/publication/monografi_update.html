@@ -21,27 +21,33 @@
                     <label>Год *</label>
                     <select id="RequestType" required class="form-control" name="year" id="year">
                         {% for year in years %}
+                            {% if year.Name != "Отсутствует" %}
                             <option selected value= "{{ year.ID_year }}">
                                 {{ year.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Город *</label>
                     <select id="RequestType" required class="form-control" name="city" id="city">
                         {% for city in cities %}
+                            {% if city.Name != "Отсутствует" %}
                             <option selected value= "{{ city.ID_city }}">
                                 {{ city.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
                     <label>Издательство *</label>
                     <select id="RequestType"  required class="form-control" name="publisher" id="publisher">
                         {% for publisher in publishers %}
+                            {% if publisher.Name != "Отсутствует" %}
                             <option selected value= "{{ publisher.ID_publisher }}">
                                 {{ publisher.Name }}
                             </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
 
@@ -67,7 +73,7 @@
                     <label for="files" class="btn btn-outline-primary btn-sm">Выбрать другой файл</label>
                     <input id="files" style="visibility:hidden;" type="file" name="document">
 
-                    <label>Примечание</label>
+                    <br><label>Примечание</label>
                     <input type="text"  class="form-control" name="note" id="note" value = "{{ publication.Note }}">
                 </div>
                 <div class="form-group">

@@ -1,0 +1,74 @@
+{% extends "publication/base_admin1.html" %}
+
+{% block content %}
+    <main role="main">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Изменить статус монографии</h1>
+        </div>
+
+        <row>
+
+                <div class="form-group">
+                    <b >Название</b>
+                    <p>{{ publication.Name }}</p>
+                    <b >DOI</b>
+                    <p>{{ publication.DOI }}</p>
+                    <b >Год</b>
+                    <p>{{ publication.ID_year.Name }}</p>
+                    <b>Город</b>
+                    <p>{{ publication.ID_city.Name }}</p>
+                    <b>Издательство</b>
+                    <p>{{ publication.ID_publisher.Name }}</p>
+                    <b>Число страниц</b>
+                    <p>{{ publication.Issue_number }}</p>
+                    <b>ISBN</b>
+                    <p>{{ publication.ISBN }}</p>
+
+                    {% if publication.Link != ""  %}
+                    <b>Ссылка на сайт</b>
+                    <p>{{ publication.Link }}</p>
+                    {% endif %}
+
+                    <b>Прикрепленный файл</b>
+                    {% if publication.File != ""  %}
+                    <form action="{% url 'download_act_enter'%}" method="POST">
+
+                            <input type="hidden" name="id_file" value="{{ publication.ID_publication}}">
+
+
+                            <input type="submit" class="btn btn-outline-secondary btn-sm" value="Скачать">
+                        </form>
+                    {% endif %}
+
+                    {% if publication.Note != ""  %}
+                    <b>Примечание</b>
+                    <p>{{ publication.Note }}</p>
+                    {% endif %}
+                <form action="{% url 'admin_monogragi_update' id=publication.ID_publication %}" method="POST">
+                    <input type="hidden" required class="form-control" name="_method" id="_method" value = "PUT">
+                    <input type="hidden" required class="form-control" name="new_id" id="new_id" value = "{{ publication.ID_publication }}">
+
+                    <label>Статус</label>
+                    <select id="RequestType" class="form-control" name="status" id="status">
+                        {% for status in statuss %}
+                            {% if status.Name != "Ожидает подтверждения" %}
+                            <option selected value= "{{ status.ID_status }}">
+                                {{ status.Name }}
+                            </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <br><label>Примечание</label>
+                    <input type="text"  class="form-control" name="note" id="note" value = "{{ publication.Note }}">
+                    <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Сохранить</button>
+                    <a class="btn btn-outline-secondary btn-sm" href="{% url 'admin_index' %}">Отмена</a>
+                </div>
+
+                    </form>
+                </div>
+    </main>
+
+
+{% endblock %}

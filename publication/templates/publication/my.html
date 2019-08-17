@@ -9,30 +9,8 @@
                     <!--<button class="btn btn-sm btn-outline-secondary">Экспорт</button>-->
                 </div>
 
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        По статусу
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="">Опубликовано</a>
-                        <a class="dropdown-item" href="">Ожидает подтвержения</a>
-                        <a class="dropdown-item" href="">Отклонено</a>
-                    </div>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        По типу
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="">Монография</a>
-                        <a class="dropdown-item" href="">Пособие</a>
-                        <a class="dropdown-item" href="">Статья</a>
-                        <a class="dropdown-item" href="">Отчет по НИР</a>
-                        <a class="dropdown-item" href="">Патенты</a>
-                        <a class="dropdown-item" href="">Свидетельство на ПО</a>
 
-                    </div>
-                </div>
+
             </div>
         </div>
 
@@ -68,11 +46,12 @@
                 </thead>
                 <tbody>
                 {% for publication in publications %}
+                    {% if publication.ID_user_profile.user.username == user.username %}
                     <tr>
                         <td>{{ publication.Name  }}</td>
-                        <td>{{ publication.ID_employee.FIO }}</td>
+                        <td>{{ publication.ID_user_profile.FIO }}</td>
                         <td>{{ publication.ID_type_publication.Name }}</td>
-                        <td>{{ publication.ID_employee.ID_department.ID_faculty.Name }}</td>
+                        <td>{{ publication.ID_user_profile.ID_department.ID_faculty.Name }}</td>
                         <td>{{ publication.ID_status.Name }}</td>
                         <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'publication_more' id=publication.ID_publication  %}">Подробнее</a></td>
 
@@ -113,6 +92,7 @@
 
                         {% endif %}
                     </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>

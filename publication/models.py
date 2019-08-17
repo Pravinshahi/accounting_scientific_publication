@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 #Cтатус
 class Status(models.Model):
@@ -132,21 +133,19 @@ class Type_publication(models.Model):
     class Meta:
         db_table = 'type_publication'
 
-#Сотрудник
-class Employee(models.Model):
-    ID_employee = models.AutoField(primary_key=True)
-    login = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
+
+#Расширенный профиль
+class UserProfile(models.Model):
+    ID_user_profile = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     FIO = models.CharField(max_length=255)
-    Date = models.DateField()
     ID_department = models.ForeignKey(Department, models.DO_NOTHING)
     ID_position = models.ForeignKey(Position, models.DO_NOTHING)
     ID_academic_title = models.ForeignKey(Academic_title, models.DO_NOTHING)
     ID_academic_degree = models.ForeignKey(Academic_degree, models.DO_NOTHING)
 
-
-    class Meta:
-        db_table = 'employee'
+    def __str__(self):
+        return self.user.username
 
 #Публикация
 class Publication(models.Model):
@@ -164,7 +163,7 @@ class Publication(models.Model):
     DOI = models.CharField(max_length=255)
     ISBN = models.CharField(max_length=255)
     ID_type_publication = models.ForeignKey(Type_publication, models.DO_NOTHING)
-    ID_employee = models.ForeignKey(Employee, models.DO_NOTHING)
+    ID_user_profile = models.ForeignKey(UserProfile, models.DO_NOTHING)
     ID_city = models.ForeignKey(City, models.DO_NOTHING)
     ID_year = models.ForeignKey(Year, models.DO_NOTHING)
     File = models.CharField(max_length=255)
@@ -183,7 +182,7 @@ class Publication(models.Model):
 class PublicationEmployee(models.Model):
     ID_publication_employee = models.AutoField(primary_key=True)
     ID_publication = models.ForeignKey(Publication, models.DO_NOTHING)
-    ID_employee = models.ForeignKey(Employee, models.DO_NOTHING)
+    ID_user_profile = models.ForeignKey(UserProfile, models.DO_NOTHING)
 
     class Meta:
         db_table = 'publication_employee'
